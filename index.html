@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Display</title>
+</head>
+<body>
+    <h1>Sensor Data</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Distance (cm)</th>
+            </tr>
+        </thead>
+        <tbody id="data-table">
+            <!-- Data will be inserted here -->
+        </tbody>
+    </table>
+    <script>
+        fetch('/data')
+            .then(response => response.json())
+            .then(data => {
+                const table = document.getElementById('data-table');
+                data.forEach(row => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `<td>${row.latitude}</td><td>${row.longitude}</td><td>${row.distance}</td>`;
+                    table.appendChild(tr);
+                });
+            });
+    </script>
+</body>
+</html>
